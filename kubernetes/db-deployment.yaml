@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: fpaho
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/fpaho-harbor-project/app@sha256:e3ada55c2953745fa98a5f22051639d76b624f3a6c822e1ec65d0ef4df6f4ec5
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/fpaho-harbor-project/db@sha256:40774ea12cda6f41a143e4e5925a67417bbd045cb8b4e1580d10436e4bf537bf
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
